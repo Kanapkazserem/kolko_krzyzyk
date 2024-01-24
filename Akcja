@@ -1,0 +1,31 @@
+package Gra;
+
+import java.util.Scanner;
+
+public class Akcja {
+
+    public static void ruchGracza(Plansza plansza, Gracz gracz) {
+        Scanner scanner = new Scanner(System.in);
+        int wiersz;
+        int kolumna;
+
+        while (true) {
+
+            System.out.println(gracz.getImie() + ", podaj numer wiersza (1-" + plansza.getLiczbaWierszy() + "): ");
+            wiersz = scanner.nextInt() - 1;
+
+            System.out.println("Podaj numer kolumny (1-" + plansza.getLiczbaKolumn() + "): ");
+            kolumna = scanner.nextInt() - 1;
+
+            // Sprawdzenie wprowadzonych danych
+            if (wiersz >= 0 && wiersz < plansza.getLiczbaWierszy() &&
+                    kolumna >= 0 && kolumna < plansza.getLiczbaKolumn() &&
+                    plansza.getPlansza()[wiersz][kolumna] == ' ') {
+                plansza.wykonajRuch(wiersz, kolumna, gracz.getSymbol());
+                break;
+            } else {
+                System.out.println("Nieprawidłowy ruch. Spróbuj ponownie.");
+            }
+        }
+    }
+}
