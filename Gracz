@@ -1,0 +1,49 @@
+import java.util.Objects;
+import java.util.Scanner;
+
+public class Gracz {
+    private static Scanner scanner = new Scanner(System.in);
+
+    private String imie;
+    private char symbol;
+
+    public Gracz(String imie, char symbol) {
+        this.imie = imie;
+        this.symbol = symbol;
+    }
+
+    public static Gracz stworzGracza(int numerGracza) {
+        System.out.println("Gracz " + numerGracza + ", podaj swoje imię: ");
+        String imie = scanner.next();
+
+        char symbol;
+        if (numerGracza == 1) {
+            symbol = 'O';
+        } else {
+            symbol = 'X';
+        }
+
+        return new Gracz(imie, symbol);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Gracz gracz = (Gracz) o;
+        return symbol == gracz.symbol && Objects.equals(imie, gracz.imie);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(imie, symbol);
+    }
+
+    public String getImie() {
+        return imie;
+    }
+
+    public char getSymbol() {
+        return symbol;
+    }
+}
