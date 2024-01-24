@@ -1,0 +1,47 @@
+
+import java.util.Scanner;
+
+public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        System.out.println("Podaj rozmiar planszy: ");
+        int rozmiarPlanszy = Math.max(scanner.nextInt(), 3);
+
+        Plansza plansza = new Plansza(rozmiarPlanszy);
+        plansza.wyswietlPlansze();
+
+        Gracz gracz1 = Gracz.stworzGracza(1);
+        Gracz gracz2 = Gracz.stworzGracza(2);
+
+        int liczbaRund = 3;
+        int numerRundy = 1;
+
+        Gracz obecnyGracz = gracz1;
+        while (numerRundy <= liczbaRund) {
+            Akcja.ruchGracza(plansza, obecnyGracz);
+            plansza.wyswietlPlansze();
+
+            if (plansza.sprawdzCzyWygrana() || plansza.czyPlanszaPelna()) {
+                if (plansza.sprawdzCzyWygrana()) {
+                    System.out.println("Gracz " + obecnyGracz.getImie() + " wygrywa rundę " + numerRundy + "!");
+                } else {
+                    System.out.println("Remis! Plansza jest pełna w rundzie " + numerRundy + ".");
+                }
+
+                plansza.resetujPlansze();
+                numerRundy++;
+            }
+            obecnyGracz = zmienGracza(obecnyGracz, gracz1, gracz2);
+        }
+
+        System.out.println("Koniec gry!");
+    }
+
+    private static Gracz zmienGracza(Gracz obecnyGracz, Gracz gracz1, Gracz gracz2) {
+        if (obecnyGracz.equals(gracz1)) {
+            return gracz2;
+        }
+        return gracz1;
+    }
+}
